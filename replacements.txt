@@ -1,0 +1,2 @@
+AstraCS:[a-zA-Z0-9_\-]+==>[REDACTED_ASTRA_TOKEN]
+hf_[a-zA-Z0-9_\-]+==>[REDACTED_HF_TOKEN]

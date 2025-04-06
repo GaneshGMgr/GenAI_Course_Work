@@ -1,0 +1,2 @@
+https://github.com/langchain-ai/langchain/tree/master/cookbook
+https://blog.langchain.dev/semi-structured-multi-modal-rag/
