@@ -1,2 +1,42 @@
-https://github.com/langchain-ai/langchain/tree/master/cookbook
+- [Github Multi-Modal-RAG](https://github.com/meta-llama/llama-cookbook/tree/main/end-to-end-use-cases/Multi-Modal-RAG)
+
+multimodal = https://github.com/langchain-ai/langchain/tree/master/cookbook
+
+multimodal (text + tables + images) RAG = https://github.com/langchain-ai/langchain/blob/master/cookbook/Semi_structured_and_multi_modal_RAG.ipynb?ref=blog.langchain.dev
+
+private multi-modal (text + tables + images) RAG = https://github.com/langchain-ai/langchain/blob/master/cookbook/Semi_structured_multi_modal_RAG_LLaMA2.ipynb?ref=blog.langchain.dev
+
+LLaVA 7b repo = https://huggingface.co/mys/ggml_llava-v1.5-7b/tree/main
+
 https://blog.langchain.dev/semi-structured-multi-modal-rag/
+
+https://python.langchain.com/v0.1/docs/templates/rag-multi-modal-local/
+
+https://blog.langchain.dev/semi-structured-multi-modal-rag/
+
+https://unstructured.io/?ref=blog.langchain.dev
+
+https://unstructured-io.github.io/unstructured/bricks/partition.html?ref=blog.langchain.dev#partition-pdf
+
+https://arxiv.org/abs/2107.08430?ref=blog.langchain.dev
+
+### Images Embiddings Models
+ImageBind: One Embedding Space To Bind Them All = https://github.com/facebookresearch/ImageBind
+CLIP = https://openai.com/index/clip/?ref=blog.langchain.dev
+GPT-4V(ision) system card = https://openai.com/index/gpt-4v-system-card/?ref=blog.langchain.dev
+OpenFlamingo = https://github.com/mlfoundations/open_flamingo
+
+### Audio Embiddings Models
+AudioEmbeddings = https://huggingface.co/learn/audio-course/en/chapter3/introduction
+
+## capable to process text and images is multimodel
+LLava
+Gemini-Pro-Vison
+GPT-4V
+Fulu
+
+## Database for multimodel is multimodel retrival
+LanceDB
+Weviate
+
+Visual_Instruction_Tuning = https://arxiv.org/pdf/2304.08485
