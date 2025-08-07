@@ -11,9 +11,9 @@ def generate_thread_id(): # generating thread id for each new conversetion
 
 def reset_chat():
     thread_id = generate_thread_id()
-    st.session_state['thread_id'] = thread_id
-    add_thread(st.session_state['thread_id'])
-    st.session_state['message_history'] = []
+    st.session_state['thread_id'] = thread_id # store thread_id in new session
+    add_thread(st.session_state['thread_id']) # 
+    st.session_state['message_history'] = [] # create a new chat page(history) in this new session with new thread_id
 
 def add_thread(thread_id):
     if thread_id not in st.session_state['chat_threads']:
