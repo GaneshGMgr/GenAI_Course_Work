@@ -5,17 +5,17 @@ import uuid
 
 # **************************************** utility functions *************************
 
-def generate_thread_id(): # generating thread id for each new conversetion
+def generate_thread_id():
     thread_id = uuid.uuid4()
     return thread_id
 
 def reset_chat():
     thread_id = generate_thread_id()
-    st.session_state['thread_id'] = thread_id # store thread_id in new session
-    add_thread(st.session_state['thread_id']) # store this generated thread_id to list of chat_threads
-    st.session_state['message_history'] = [] # create a new chat page(history) in this new session with new thread_id
+    st.session_state['thread_id'] = thread_id
+    add_thread(st.session_state['thread_id'])
+    st.session_state['message_history'] = []
 
-def add_thread(thread_id): # store all the generated threads_id inside the chat_threads
+def add_thread(thread_id):
     if thread_id not in st.session_state['chat_threads']:
         st.session_state['chat_threads'].append(thread_id)
 
@@ -30,7 +30,7 @@ if 'message_history' not in st.session_state:
 if 'thread_id' not in st.session_state:
     st.session_state['thread_id'] = generate_thread_id()
 
-if 'chat_threads' not in st.session_state: # store all the thread_id in in a list of chat_threads
+if 'chat_threads' not in st.session_state:
     st.session_state['chat_threads'] = []
 
 add_thread(st.session_state['thread_id'])
