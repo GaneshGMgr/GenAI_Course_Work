@@ -2,7 +2,8 @@ import os
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain_ollama import ChatOllama, OllamaEmbeddings
+from langchain_ollama import ChatOllama
+from langchain.embeddings import SentenceTransformerEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
@@ -12,7 +13,7 @@ load_dotenv()
 os.environ['LANGCHAIN_PROJECT'] = '3_rag_v1.py'
 
 
-PDF_PATH = "data/isir.pdf"
+PDF_PATH = "data/islr.pdf"
 
 # Load and split PDF
 loader = PyPDFLoader(PDF_PATH)
@@ -22,9 +23,10 @@ splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
 splits = splitter.split_documents(docs)
 
 # Embeddings and vector store
-embeddings = OllamaEmbeddings(model="nomic-embed-text")  # Use a proper Ollama embedding model
+
+embeddings = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 vector_store = Chroma.from_documents(splits, embeddings)
-retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"K": 4})
+retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 4})
 
 # Prompt template
 prompt = ChatPromptTemplate.from_messages([
@@ -53,8 +55,8 @@ config = {
     'run_name': '3_rag_v1',
     'tags': ['llm app', 'report generation', 'summarization'],
     'metadata': {
-        'llm1_model': 'llama3.2',
-        'llm1_temp': 0.7,
+        'llm_model': 'llama3.2',
+        'llm_temp': 0,
         'parser': 'StrOutputParser'
     }
 }
@@ -67,3 +69,7 @@ while True:
         break
     answer = chain.invoke(question,  config=config)
     print("\nAnswer: ", answer)
+
+
+### Testing Questions
+# Who is the author of this book?
