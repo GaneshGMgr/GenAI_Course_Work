@@ -1,6 +1,6 @@
 # pip install -U langgraph langchain-openai pydantic python-dotenv langsmith
 import operator
-from typing import TypeDict, Annotated, List
+from typing import TypedDict, Annotated, List
 
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
@@ -13,13 +13,13 @@ import os
 
 # ---------- Setup --------------
 load_dotenv()
-os.environ['LANGCHAIN_PROJECT'] = '4_agent.py.py'
+os.environ['LANGCHAIN_PROJECT'] = '5_langgraph.py'
 model = ChatOllama(model = "llama3.2", temperature = 0)
 
 # ---------- Structured Schema & Model -----------
 class EvaluationSchema(BaseModel):
     feedback: str = Field(description="Detailed feedback for the essay")
-    score: int = Field(description = "Score out of 10", ge=0, le=10)
+    score: int = Field(description="Score out of 10", ge=0, le=10)
 
 structured_model = model.with_structured_output(EvaluationSchema)
 
@@ -63,37 +63,37 @@ If Nepal use AI good way, we become strong, help poor and make better life. But 
 So, in short, AI time in Nepal have many hope and many danger. We must go right road. AI must help all people, not only some. Then Nepal grow big and world say "good job Nepal".
 """
 
-# -------- LangGraph state -----------
-class NPState(TypeDict, total = False):
+# ---------- LangGraph state ----------
+class UPSCState(TypedDict, total=False):
     essay: str
     language_feedback: str
     analysis_feedback: str
-    clearity_feedback: str
+    clarity_feedback: str
     overall_feedback: str
-    individual_scores: Annotated[List[int], operator.add] # merges parallel lists
+    individual_scores: Annotated[List[int], operator.add]  # merges parallel lists
+    avg_score: float
 
-
-# --------- Traced node functions -----------
-@traceable(name="evaluate_language_fn", tags = ["dimension:language"], metadata={"dimension": "language"})
-def evaluate_language(state: NPState):
+# ---------- Traced node functions ----------
+@traceable(name="evaluate_language_fn", tags=["dimension:language"], metadata={"dimension": "language"})
+def evaluate_language(state: UPSCState):
     prompt = (
         "Evaluate the language quality of the following essay and provide feedback "
         "and assign a score out of 10.\n\n" + state["essay"]
     )
     out = structured_model.invoke(prompt)
-    return {"langugae_feedback": out.feedback, "individual_scores": [out.score]}
+    return {"language_feedback": out.feedback, "individual_scores": [out.score]}
 
 @traceable(name="evaluate_analysis_fn", tags=["dimension:analysis"], metadata={"dimension": "analysis"})
-def evaluate_analysis(state: NPState):
+def evaluate_analysis(state: UPSCState):
     prompt = (
-        "Evaluate the depth of analysis of the following essay and provide feedback"
+        "Evaluate the depth of analysis of the following essay and provide feedback "
         "and assign a score out of 10.\n\n" + state["essay"]
     )
     out = structured_model.invoke(prompt)
     return {"analysis_feedback": out.feedback, "individual_scores": [out.score]}
 
 @traceable(name="evaluate_thought_fn", tags=["dimension:clarity"], metadata={"dimension": "clarity_of_thought"})
-def evaluate_thought(state: NPState):
+def evaluate_thought(state: UPSCState):
     prompt = (
         "Evaluate the clarity of thought of the following essay and provide feedback "
         "and assign a score out of 10.\n\n" + state["essay"]
@@ -102,7 +102,7 @@ def evaluate_thought(state: NPState):
     return {"clarity_feedback": out.feedback, "individual_scores": [out.score]}
 
 @traceable(name="final_evaluation_fn", tags=["aggregate"])
-def final_evaluation(state: NPState):
+def final_evaluation(state: UPSCState):
     prompt = (
         "Based on the following feedback, create a summarized overall feedback.\n\n"
         f"Language feedback: {state.get('language_feedback','')}\n"
@@ -115,7 +115,7 @@ def final_evaluation(state: NPState):
     return {"overall_feedback": overall, "avg_score": avg}
 
 # ---------- Build graph ----------
-graph = StateGraph(NPState)
+graph = StateGraph(UPSCState)
 
 graph.add_node("evaluate_language", evaluate_language)
 graph.add_node("evaluate_analysis", evaluate_analysis)
