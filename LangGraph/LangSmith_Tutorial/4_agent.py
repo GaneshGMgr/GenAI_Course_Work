@@ -8,6 +8,7 @@ import os
 from dotenv import load_dotenv
 
 # Load .env variables
+os.environ['LANGCHAIN_PROJECT'] = '4_agent.py.py'
 load_dotenv()
 API_KEY = os.getenv("WEATHERSTACK_API_KEY")  # your weatherstack key
 
@@ -62,7 +63,7 @@ agent_executor = AgentExecutor(
     agent=agent,
     tools=[web_search, get_weather_data],
     verbose=True,
-    max_iterations=5
+    max_iterations=10
 )
 
 # -------------------- run --------------------
@@ -73,6 +74,6 @@ if __name__ == "__main__":
     print(response['output'])
 
 
-# What is the release date of Agenvers End Game?
+# What is the release date of Avengers Endgame?
 # What is the current temp of Kathmandu?
 # Identify the birthplace city of Pasang Lhamu Sherpa (search) and give its currenct temperature.
