@@ -76,9 +76,9 @@ if user_input:
     # Assistant streaming block
     with st.chat_message("assistant"):
         # Use a mutable holder so the generator can set/modify it
-        status_holder = {"box": None}
+        status_holder = {"box": None} # keeps track of the Streamlit status box widget like: 🔧 Using search_tool … , 🔧 Using calculator …, ✅ Tool finished
 
-        def ai_only_stream():
+        def ai_only_stream(): # only stram if AIMessage
             for message_chunk, metadata in chatbot.stream(
                 {"messages": [HumanMessage(content=user_input)]},
                 config=CONFIG,
