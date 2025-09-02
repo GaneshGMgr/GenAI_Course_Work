@@ -84,15 +84,16 @@ if user_input:
                 config=CONFIG,
                 stream_mode="messages",
             ):
-                # Lazily create & update the SAME status container when any tool runs
-                if isinstance(message_chunk, ToolMessage):
-                    tool_name = getattr(message_chunk, "name", "tool")
-                    if status_holder["box"] is None:
+                # Lazily create & update the SAME status container when any tool runs: don’t create the status UI upfront. Create it only when 
+                # needed (lazy). And reuse the same box instead of creating a new one each time.
+                if isinstance(message_chunk, ToolMessage): # Check if chunk is from tool: ensures following code only runs if model is using tool.
+                    tool_name = getattr(message_chunk, "name", "tool") # If the ToolMessage has a .name attribute (e.g., "calculator"), grab it. If not, default to "tool".
+                    if status_holder["box"] is None: # First time: create the status box
                         status_holder["box"] = st.status(
                             f"🔧 Using `{tool_name}` …", expanded=True
                         )
                     else:
-                        status_holder["box"].update(
+                        status_holder["box"].update( # If a box already exists: update it
                             label=f"🔧 Using `{tool_name}` …",
                             state="running",
                             expanded=True,
