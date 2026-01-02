@@ -1,0 +1,1 @@
+langchain-ollama¶:: https://reference.langchain.com/python/integrations/langchain_ollama/?_gl=1*1c60x9x*_gcl_au*MjExODM5NzQ2NC4xNzY1OTk0MzU5*_ga*NDQwMjI2MjY5LjE3NjU5OTQzNjA.*_ga_47WX3HKKY2*czE3NjYwMDExMTUkbzIkZzEkdDE3NjYwMDE4MTQkajYwJGwwJGgw#langchain_ollama.ChatOllama
