@@ -1,5 +1,5 @@
 from ollama import chat, ChatResponse
-from model import llm_ollama
+from model import llm_chat_Openai
 from model import MODEL_NAME
 
 # Define the calculator tool as a normal Python function

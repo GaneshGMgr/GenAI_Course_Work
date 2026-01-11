@@ -3,20 +3,22 @@
 ## Installation
 
 ```bash
-pip install -U langgraph
-ollama pull qwen3
-uv add python-dotenv
-uv add langchain-ollama
-uv add openai
-uv add langchain-openai
-uv add pypdf
-uv add langchain
-uv add langchain-community
+uv init .
+uv venv
+
+uv add streamlit --active
+uv add langgraph --active
+uv add langchain --active
 uv add langchain-core
+uv add langchain-community
+uv add langchain-ollama
 uv add faiss-cpu
-uv add langgraph
-uv add typing_extensions
+uv add pypdf
+uv add python-dotenv
 uv add huggingface-hub
+pip install -qU  langchain langchain-huggingface sentence_transformers
+uv add duckduckgo-search
+ollama pull qwen3
 
 ```
 
