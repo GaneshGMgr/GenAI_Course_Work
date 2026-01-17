@@ -1,0 +1,41 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.*    # if you have multiple env files
+
+# Log files
+*.log
+
+# Python egg / distribution files
+*.egg
+*.egg-info/
+dist/
+build/
+*.whl
+
+# IDE / editor files (VS Code, PyCharm, etc.)
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# LangGraph / temporary memory files (if any)
+*.db
+*.sqlite
+*.checkpoint

@@ -30,4 +30,5 @@ members = [
     "RAG_chatbot",
     "Human_In_The_Loop",
     "SubGraph",
+    "Memory_In_LLM",
 ]

@@ -10,16 +10,18 @@ from dotenv import load_dotenv
 import requests
 import os
 
-# Load environment variables
-os.environ["LANGCHAIN_TRACING_V2"] = "false"
+# Load environment variables from .env
 load_dotenv()
 
-# Initialize local LLM
+# Set LangChain tracing flag
+os.environ["LANGCHAIN_TRACING_V2"] = os.getenv("LANGCHAIN_TRACING_V2", "false")
+
+# Initialize your LLM using values from .env
 llm = ChatOpenAI(
-    base_url="http://localhost:11434/v1",
-    api_key="ollama",
-    model="qwen3:latest",
-    temperature=0.0,
+    base_url=os.getenv("LLM_BASE_URL"),
+    api_key=os.getenv("LLM_API_KEY"),
+    model=os.getenv("LLM_MODEL"),
+    temperature=float(os.getenv("LLM_TEMPERATURE", 0.0)),
 )
 
 # Tool: fetch stock price with FMP first, fallback to Alpha Vantage
