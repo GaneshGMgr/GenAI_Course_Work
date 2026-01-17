@@ -1,0 +1,29 @@
+# Virtual environments
+.venv
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+.env.*local
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Local / scratch files
+*copy*.py
+*backup*
+uninstall.txt
+RAG_chatbot/uninstall.txt
+
+# Runtime artifacts
+*.db
+*.log
+chatbot_memory.db

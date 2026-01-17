@@ -6,6 +6,9 @@
 uv init .
 uv venv
 
+# Register the virtual environment as a Jupyter kernel
+python -m ipykernel install --user --name=langgraph-tutorial --display-name "Python 3.13 LangGraph"
+
 uv add streamlit --active
 uv add langgraph --active
 uv add langchain --active
